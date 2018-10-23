@@ -4,4 +4,7 @@ node_js:
 cache:
   directories:
     - "node_modules"
-script: "npm run test"
+sudo: required
+services:
+  - docker
+script: make test
