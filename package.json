@@ -1,0 +1,31 @@
+{
+  "name": "awesomeqp",
+  "version": "0.0.1",
+  "description": "Better communication with amqplib",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --runInBand --forceExit --ci --errorOnDeprecated",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/salimkayabasi/awesomeqp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/salimkayabasi/awesomeqp/issues"
+  },
+  "homepage": "https://github.com/salimkayabasi/awesomeqp#readme",
+  "devDependencies": {
+    "amqplib": "^0.5.2",
+    "eslint": "^5.7.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "jest": "^23.6.0",
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.5"
+  },
+  "dependencies": {}
+}

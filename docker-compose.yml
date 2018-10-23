@@ -1,0 +1,18 @@
+version: '3'
+services:
+  awesomeqp:
+    container_name: awesomeqp
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: sh -c "sleep 10 && npm test"
+    environment:
+      - AMQP_URL=amqp://mq
+      - AMQP_HTTP_TEST_URL=http://mq:15672
+    depends_on:
+      - mq
+  mq:
+    container_name: awesomeqp-mq
+    image: rabbitmq:management-alpine
+    logging:
+      driver: none
