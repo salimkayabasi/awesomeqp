@@ -1,10 +1,13 @@
 coverage/
 tests/
 
-.editorconfig
 .eslint*
 .travis*
 *ocker*
 jest*
 Makefile
 *.md
+
+.idea/
+.vscode/
+.editorconfig
