@@ -4,9 +4,13 @@
   "description": "Better communication with amqplib",
   "main": "index.js",
   "scripts": {
+    "major": "npm version major -m \"New major version %s\"",
+    "minor": "npm version minor -m \"New minor version %s\"",
+    "patch": "npm version patch -m \"New patch version %s\"",
     "test": "jest --runInBand --forceExit --ci --errorOnDeprecated",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "pretest": "npm run lint"
   },
   "repository": {
     "type": "git",
