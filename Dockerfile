@@ -1,6 +1,5 @@
 FROM node:alpine
 
-ENV NODE_ENV production
 ENV APP /app/
 WORKDIR $APP
 
