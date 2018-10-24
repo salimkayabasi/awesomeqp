@@ -172,6 +172,7 @@ describe('MQ', () => {
       const publisher = new MQ(amqp, options);
       await publisher.publish('eventName', 'payload');
       mq = new MQ(amqp, options);
+      mq.on('error', onError);
       mq.on('update', (msg) => {
         const result = JSON.parse(msg);
         expect(result.payload).toBe('payload');

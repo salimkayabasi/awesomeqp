@@ -33,7 +33,7 @@ module.exports = class MQ extends EventEmitter {
     if (typeof options.type === 'undefined') {
       throw new Error('options.type is required');
     }
-    if (Object.keys(TYPES).indexOf(options.type) === -1) {
+    if (!Object.keys(TYPES).includes(options.type)) {
       throw new Error(`options.type is not correct ${options.type}`);
     }
     if (options.type === TYPES.queue && typeof options.queueName === 'undefined') {
@@ -59,7 +59,7 @@ module.exports = class MQ extends EventEmitter {
     const message = {
       version,
       name,
-      timestamp: new Date(),
+      timestamp: Date.now(),
       payload: payload || {},
     };
     return Buffer.from(JSON.stringify(message));
@@ -104,13 +104,14 @@ module.exports = class MQ extends EventEmitter {
 
   async assert(channel) {
     const { type } = this.options;
-    if (type === TYPES.queue) {
-      return this.assertQueue(channel);
+    switch (type) {
+      case TYPES.queue:
+        return this.assertQueue(channel);
+      case TYPES.exchange:
+        return this.assertExchange(channel);
+      default:
+        throw new Error('Queue Assertion Error');
     }
-    if (type === TYPES.exchange) {
-      return this.assertExchange(channel);
-    }
-    throw new Error('Queue Assertion Error');
   }
 
   async assertExchange(channel) {
@@ -132,7 +133,6 @@ module.exports = class MQ extends EventEmitter {
     }
     this.emit('info', 'Queue created', { name: this.name });
   }
-
 
   async createChannel() {
     if (this.channel) {
@@ -180,11 +180,7 @@ module.exports = class MQ extends EventEmitter {
         await this.reconnect();
       });
       await this.createChannel();
-      const connection = resolve(this.connection);
-      if (this.isConsumer) {
-        await this.consume();
-      }
-      return connection;
+      return resolve(this.connection);
     });
     return this.connecting;
   }
@@ -194,7 +190,10 @@ module.exports = class MQ extends EventEmitter {
     this.emit('info', 'Reconnecting to rabbitmq', { reconnectId, name });
     await this.stop(reconnectId);
     await delay(Math.random() * 3000);
-    return this.connect(reconnectId);
+    await this.connect(reconnectId);
+    if (this.isConsumer) {
+      await this.consume();
+    }
   }
 
   async stop(reconnectId) {
