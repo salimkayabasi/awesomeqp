@@ -70,12 +70,15 @@ module.exports = class MQ extends EventEmitter {
     await this.connect();
     const { queueName } = this.options;
     this.emit('info', 'Consuming messages', { queueName });
-    this.channel.consume(queueName, async (msg) => {
+    this.channel.consume(queueName, (msg) => {
       if (msg != null) {
-        this.emit('update', msg.content);
-        this.channel.ack(msg);
+        this.emit('update', msg);
       }
     });
+  }
+
+  ack(msg) {
+    this.channel.ack(msg);
   }
 
   async publish(eventName, payload) {
