@@ -15,10 +15,10 @@ module.exports = {
   testMatch: ['<rootDir>/tests/**/*.test.js?(x)'],
   coverageThreshold: {
     global: {
-      statements: 88,
-      branches: 88,
-      functions: 89,
-      lines: 88,
+      statements: 80,
+      branches: 80,
+      functions: 80,
+      lines: 80,
     },
   },
 };

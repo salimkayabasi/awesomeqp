@@ -173,8 +173,8 @@ describe('MQ', () => {
       await publisher.publish('eventName', 'payload');
       mq = new MQ(amqp, options);
       mq.on('error', onError);
-      mq.on('update', (msg) => {
-        const result = JSON.parse(msg);
+      mq.on('update', ({ content }) => {
+        const result = JSON.parse(content);
         expect(result.payload).toBe('payload');
         expect(result.name).toBe('eventName');
         done();
@@ -190,8 +190,8 @@ describe('MQ', () => {
         queueName: `MQ.TEST.QUEUE-PULL-${(new Date()).getTime()}`,
       };
       mq = new MQ(amqp, options);
-      mq.on('update', (msg) => {
-        const result = JSON.parse(msg);
+      mq.on('update', ({ content }) => {
+        const result = JSON.parse(content);
         expect(result.payload).toBe('payload');
         expect(result.name).toBe('eventName');
         done();
