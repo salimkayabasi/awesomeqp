@@ -1,6 +1,6 @@
 {
   "name": "awesomeqp",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Better communication with amqplib",
   "main": "index.js",
   "scripts": {
