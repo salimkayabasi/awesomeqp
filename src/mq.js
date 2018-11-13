@@ -59,7 +59,7 @@ module.exports = class MQ extends EventEmitter {
     const message = {
       version,
       name,
-      timestamp: Date.now(),
+      timestamp: Math.floor(Date.now() / 1e3),
       payload: payload || {},
     };
     return Buffer.from(JSON.stringify(message));
